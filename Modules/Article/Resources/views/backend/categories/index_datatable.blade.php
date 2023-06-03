@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('backend.layouts.master')
 
 @section('title') {{ __($module_action) }} {{ __($module_title) }} @endsection
 
@@ -84,13 +84,13 @@
 
 @endsection
 
-@push ('after-styles')
+@push ('style')
 <!-- DataTables Core and Extensions -->
 <link rel="stylesheet" href="{{ asset('vendor/datatable/datatables.min.css') }}">
 
 @endpush
 
-@push ('after-scripts')
+@push ('plugin-scripts')
 <!-- DataTables Core and Extensions -->
 <script type="module" src="{{ asset('vendor/datatable/datatables.min.js') }}"></script>
 

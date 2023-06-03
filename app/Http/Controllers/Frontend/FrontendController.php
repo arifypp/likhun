@@ -42,4 +42,14 @@ class FrontendController extends Controller
 
         return view('frontend.terms', compact('body_class'));
     }
+
+    /**
+     * Custom Page.
+     */
+    public function custompage()
+    {
+        $body_class = '';
+
+        return view('frontend.custompage', compact('body_class'));
+    }
 }

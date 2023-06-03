@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('backend.layouts.master')
 
 @section('title') {{ __($module_action) }} {{ __($module_title) }} @endsection
 
@@ -43,9 +43,9 @@
                     {{ html()->form()->close() }}
 
                     <div class="col-8">
-                        <div class="float-end">
+                        <div class="text-right">
                             @can('delete_'.$module_name)
-                            <a href="{{route("backend.$module_name.destroy", $$module_name_singular)}}" class="btn btn-danger" data-method="DELETE" data-token="{{csrf_token()}}" data-toggle="tooltip" title="{{__('labels.backend.delete')}}"><i class="fas fa-trash-alt"></i></a>
+                            <a href="{{route("backend.$module_name.destroy", $$module_name_singular)}}" class="btn btn-danger" data-method="DELETE" data-token="{{csrf_token()}}" data-toggle="tooltip" title="{{__('labels.backend.delete')}}"><i data-feather="trash" width="16" height="16"></i></a>
                             @endcan
                             <x-buttons.cancel></x-buttons.cancel>
                         </div>

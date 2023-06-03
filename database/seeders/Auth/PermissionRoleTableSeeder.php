@@ -60,6 +60,17 @@ class PermissionRoleTableSeeder extends Seeder
         ]);
         echo "\n _Comments_ Permissions Created.";
 
+        Artisan::call('auth:permission', [
+            'name' => 'songs',
+        ]);
+        Artisan::call('auth:permission', [
+            'name' => 'artists',
+        ]);
+        Artisan::call('auth:permission', [
+            'name' => 'song_categories',
+        ]);
+        echo "\n _Comments_ Permissions Created.";
+
         echo "\n\n";
 
         // Assign Permissions to Roles

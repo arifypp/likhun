@@ -1,74 +1,112 @@
-<x-auth-layout>
-    <x-slot name="title">
-        @lang('Register')
-    </x-slot>
-
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <!-- Social login -->
-        <x-auth-social-login />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <!-- First Name -->
-            <div class="mt-4">
-                <x-label for="first_name" :value="__('First Name')" />
-
-                <x-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus />
+@extends('layouts.auth')
+@section('title', 'Register')
+@section('content')
+<!-- Register Page Start-->
+<section class="auth-wrapper">
+    <div class="row g-0">
+        <div class="hero-static col-lg-4 d-none d-lg-flex flex-column">
+            <div class="p-4 p-xl-5 flex-grow-1 d-flex align-items-center">
+                <div class="w-100">
+                    <a href="/" class="link-fx fw-semibold fs-2 text-white">
+                        <img src="{{ asset('assets/frontend/img/logo/logo-white.png') }}" class="img-fluid" width="180" /></a>
+                    <p class="me-xl-8 mt-2 text-light">Welcome to your amazing app. Feel free to login and start managing your projects and clients.</p>
+                </div>
             </div>
-
-            <!-- Last Name -->
-            <div class="mt-4">
-                <x-label for="last_name" :value="__('Last Name')" />
-
-                <x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autofocus />
+            <div class="p-4 p-xl-5 d-xl-flex justify-content-between align-items-center fs-sm">
+                <p class="fw-medium text-white-50 mb-0"></p>
+                <ul class="list list-inline mb-0 py-2">
+                    <li class="list-inline-item"><a class="text-light fw-medium" href="javascript:void(0)">Legal</a></li>
+                    <li class="list-inline-item"><a class="text-light fw-medium" href="javascript:void(0)">Contact</a></li>
+                    <li class="list-inline-item"><a class="text-light fw-medium" href="javascript:void(0)">Terms</a></li>
+                </ul>
             </div>
-
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+        </div>
+        <div class="hero-static col-lg-8 d-flex flex-column bg-light">
+            <div class="p-3 w-100 d-lg-none text-center">
+                <a href="/" class="link-fx fw-semibold fs-3 text-dark">
+                    <img src="{{ asset('assets/frontend/img/logo/logo-black.png') }}" class="img-fluid" width="180" /></a>
             </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+            <div class="p-4 w-100 flex-grow-1 d-flex align-items-center">
+                <div class="w-100">
+                    <div class="text-center mb-5">
+                        <a href="/" class="">
+                            <img src="{{ asset('assets/frontend/img/favicon.png') }}" class="img-fluid d-inline-block" width="50" />
+                        </a>
+                        <h2 class="fw-bold mb-2">@lang('Register')</h2>
+                        <p class="text-muted">Welcome, please login or <a href="/auth/signup" class="">sign up</a> for a new account.</p>
+                    </div>
+                    <div class="row g-0 justify-content-center">
+                        <div class="col-sm-8 col-md-6 col-lg-6 col-xl-5">
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Success!</strong> {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+                            @if($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Error!</strong> {{ $error }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endforeach
+                            @endif
+                            <form method="POST" action="{{ route('register') }}">
+                                @csrf
+                                <div class="mb-4 contact-icon-name">
+                                    <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Name Here" required autofocus/>
+                                </div>
+                                <div class="mb-4 contact-icon-mail">
+                                    <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Email Address" required autofocus/>
+                                </div>
+                                <div class="mb-4">
+                                    <input type="password" id="password" name="password" placeholder="Password" required />
+                                </div>
+                                <div class="mb-4">
+                                    <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password" required/>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="form-submission w-100">
+                                        <button type="submit" class="btn btn-lg tp-btn btn-block w-100">
+                                            <i class="fa fa-fw fa-sign-in-alt me-1 opacity-50"></i> 
+                                            Create Account
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="form-submission">
+                                    @if (Route::has('password.request'))
+                                        <a href="{{ route('password.request') }}" class="text-muted">
+                                            <i class="fa fa-fw fa-unlock-alt me-1 opacity-50"></i> 
+                                            {{ __('Forgot your password?') }}
+                                        </a>
+                                    @endif
+                                    </div>
+                                    <div class="form-submission">
+                                    @if (Route::has('login'))
+                                        <a href="{{ route('login') }}" class="text-muted">
+                                            <i class="fa fa-fw fa-user me-1 opacity-50"></i> 
+                                            Already have an account
+                                        </a>
+                                    @endif
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
+            <div class="px-4 py-3 w-100 d-lg-none d-flex flex-column flex-sm-row justify-content-between fs-sm text-center text-sm-start">
+                <p class="fw-medium text-black-50 py-2 mb-0"></p>
+                <ul class="list list-inline py-2 mb-0">
+                    <li class="list-inline-item"><a class="text-muted fw-medium" href="javascript:void(0)">Legal</a></li>
+                    <li class="list-inline-item"><a class="text-muted fw-medium" href="javascript:void(0)">Contact</a></li>
+                    <li class="list-inline-item"><a class="text-muted fw-medium" href="javascript:void(0)">Terms</a></li>
+                </ul>
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <!-- <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a> -->
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-
-        <x-slot name="extra">
-            <p class="text-center text-gray-600 mt-4">
-                Already have an account? <a href="{{ route('login') }}" class="underline hover:text-gray-900">Login</a>.
-            </p>
-        </x-slot>
-    </x-auth-card>
-</x-auth-layout>
+        </div>
+    </div>       
+</section>
+<!-- Register Page End -->
+@endsection

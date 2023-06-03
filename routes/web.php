@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\AdminUpdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,18 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
     Route::get('home', 'FrontendController@index')->name('home');
     Route::get('privacy', 'FrontendController@privacy')->name('privacy');
     Route::get('terms', 'FrontendController@terms')->name('terms');
+    Route::get('custompage', 'FrontendController@custompage')->name('custompage');
+    Route::get('lyrics', 'SongController@index')->name('song');
+    Route::get('lyrics/{slug}', 'SongController@show')->name('song.show');
+    Route::get('/single', function(){
+        return view('frontend.single');
+    });
+    Route::get('/artist', function(){
+        return view('frontend.artist');
+    });
+    Route::get('/all-songs', function(){
+        return view('frontend.all-songs');
+    });
 
     Route::group(['middleware' => ['auth']], function () {
         /*
@@ -70,6 +83,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     Route::get('/', 'BackendController@index')->name('home');
     Route::get('dashboard', 'BackendController@index')->name('dashboard');
 
+    // web.php
+    Route::get('admin/update', [AdminUpdateController::class, 'performUpdate'])->name('admin.update.perform');
+
+
     /*
      *
      *  Settings Routes
@@ -81,6 +98,54 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         $controller_name = 'SettingController';
         Route::get("$module_name", "$controller_name@index")->name("$module_name");
         Route::post("$module_name", "$controller_name@store")->name("$module_name.store");
+    });
+
+    /**
+     * 
+     * Artists Routes
+     */
+    Route::group(['middleware' => ['permission:edit_artists']], function () {
+        $module_name = 'artists';
+        $controller_name = 'ArtistController';
+        Route::get("$module_name", "$controller_name@index")->name("$module_name");
+        Route::get("$module_name/create", "$controller_name@create")->name("$module_name.create");
+        Route::post("$module_name", "$controller_name@store")->name("$module_name.store");
+        Route::get("$module_name/{id}/edit", "$controller_name@edit")->name("$module_name.edit");
+        Route::post("$module_name/{id}", "$controller_name@update")->name("$module_name.update");
+        Route::get("$module_name/{id}/show", "$controller_name@show")->name("$module_name.show");
+        Route::delete("$module_name/{id}", "$controller_name@destroy")->name("$module_name.destroy");
+    });
+
+    /**
+     * 
+     * Song Categories Routes
+     */
+    Route::group(['middleware' => ['permission:edit_song_categories']], function () {
+        $module_name = 'song_categories';
+        $controller_name = 'SongCategoryController';
+        Route::get("$module_name", "$controller_name@index")->name("$module_name");
+        Route::get("$module_name/create", "$controller_name@create")->name("$module_name.create");
+        Route::post("$module_name", "$controller_name@store")->name("$module_name.store");
+        Route::get("$module_name/{id}/edit", "$controller_name@edit")->name("$module_name.edit");
+        Route::post("$module_name/{id}", "$controller_name@update")->name("$module_name.update");
+        Route::get("$module_name/{id}/show", "$controller_name@show")->name("$module_name.show");
+        Route::delete("$module_name/{id}", "$controller_name@destroy")->name("$module_name.destroy");
+    });
+    
+    /**
+     * 
+     * Songs Routes
+     */
+    Route::group(['middleware' => ['permission:edit_songs']], function () {
+        $module_name = 'songs';
+        $controller_name = 'SongController';
+        Route::get("$module_name", "$controller_name@index")->name("$module_name");
+        Route::get("$module_name/create", "$controller_name@create")->name("$module_name.create");
+        Route::post("$module_name", "$controller_name@store")->name("$module_name.store");
+        Route::get("$module_name/{id}/edit", "$controller_name@edit")->name("$module_name.edit");
+        Route::post("$module_name/{id}", "$controller_name@update")->name("$module_name.update");
+        Route::get("$module_name/{id}/show", "$controller_name@show")->name("$module_name.show");
+        Route::delete("$module_name/{id}", "$controller_name@destroy")->name("$module_name.destroy");
     });
 
     /*

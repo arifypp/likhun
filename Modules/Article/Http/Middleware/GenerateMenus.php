@@ -16,8 +16,8 @@ class GenerateMenus
     {
         \Menu::make('admin_sidebar', function ($menu) {
             // Articles Dropdown
-            $articles_menu = $menu->add('<i class="nav-icon fas fa-file-alt"></i> '.__('Article'), [
-                'class' => 'nav-group',
+            $articles_menu = $menu->add('<i class="link-icon" data-feather="server"></i> '.__('<span class="link-title">Article</span>') .'<i class="link-arrow" data-feather="chevron-down"></i>', [
+                'class' => 'nav-item',
             ])
                 ->data([
                     'order' => 81,
@@ -28,14 +28,19 @@ class GenerateMenus
                     'permission' => ['view_posts', 'view_categories'],
                 ]);
             $articles_menu->link->attr([
-                'class' => 'nav-link nav-group-toggle',
-                'href' => '#',
+                'class' => 'nav-link',
+                'href' => '#articles',
+                'data-toggle' => 'collapse',
+                'aria-expanded' => 'false',
+                'role' => 'button',
+                'aria-controls' => 'articles',
             ]);
 
             // Submenu: Posts
-            $articles_menu->add('<i class="nav-icon fas fa-file-alt"></i> '.__('Posts'), [
+            $articles_menu->add(__('Posts'), [
                 'route' => 'backend.posts.index',
-                'class' => 'nav-item',
+                'class' => 'nav-item collapse',
+                'id' => 'articles',
             ])
                 ->data([
                     'order' => 82,
@@ -46,9 +51,10 @@ class GenerateMenus
                     'class' => 'nav-link',
                 ]);
             // Submenu: Categories
-            $articles_menu->add('<i class="nav-icon fas fa-sitemap"></i> '.__('Categories'), [
+            $articles_menu->add(__('Categories'), [
                 'route' => 'backend.categories.index',
-                'class' => 'nav-item',
+                'class' => 'nav-item collapse',
+                'id' => 'articles',
             ])
                 ->data([
                     'order' => 83,

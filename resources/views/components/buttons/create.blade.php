@@ -1,19 +1,19 @@
-@props(["route"=>"", "icon"=>"fas fa-plus-circle", "title", "small"=>"", "class"=>""])
+@props(["route"=>"", "icon"=>"plus", "title", "small"=>"", "class"=>""])
 
 @if($route)
 <a href='{{$route}}'
-    class='btn btn-success {{($small=='true')? 'btn-sm' : ''}} {{$class}}'
+    class='btn btn-primary {{($small=='true')? 'btn-sm' : ''}} {{$class}}'
     data-toggle="tooltip"
     title="{{ $title }}">
-    <i class="{{$icon}}"></i>
+    <i data-feather="{{$icon}}" width="16" height="16"></i>
     {{ $slot }}
 </a>
 @else
 <button type="submit"
-    class='btn btn-success {{($small=='true')? 'btn-sm' : ''}} {{$class}}'
+    class='btn btn-primary {{($small=='true')? 'btn-sm' : ''}} {{$class}}'
     data-toggle="tooltip"
     title="{{ $title }}">
-    <i class="{{$icon}}"></i>
+    <i data-feather="{{$icon}}"></i>
     {{ $slot }}
 </button>
 @endif

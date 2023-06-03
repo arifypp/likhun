@@ -8,3 +8,9 @@
 	From: Dhaka, Bangladesh
 
 /* THANKS */
+
+User: super@admin.com
+Pass: secret
+
+User: user@user.com
+Pass: secret

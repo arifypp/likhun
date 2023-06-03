@@ -16,8 +16,12 @@ class GenerateMenus
     public function handle($request, Closure $next)
     {
         \Menu::make('admin_sidebar', function ($menu) {
+            // Separator: Access Management
+            $menu->add('Main', [
+                'class' => 'nav-item nav-category',
+            ]);
             // Dashboard
-            $menu->add('<i class="nav-icon fa-solid fa-cubes"></i> '.__('Dashboard'), [
+            $menu->add('<i class="link-icon" data-feather="box"></i> '.__('<span class="link-title">Dashboard</span>'), [
                 'route' => 'backend.dashboard',
                 'class' => 'nav-item',
             ])
@@ -30,7 +34,7 @@ class GenerateMenus
                 ]);
 
             // Notifications
-            $menu->add('<i class="nav-icon fas fa-bell"></i> Notifications', [
+            $menu->add('<i class="link-icon" data-feather="bell"></i> <span class="link-title">'.__('Notifications').'</span>', [
                 'route' => 'backend.notifications.index',
                 'class' => 'nav-item',
             ])
@@ -43,9 +47,87 @@ class GenerateMenus
                     'class' => 'nav-link',
                 ]);
 
-            // Separator: Access Management
+            // Separator: Lyric Music
+            $menu->add('Lyrical Music', [
+                'class' => 'nav-item nav-category',
+            ])
+                ->data([
+                    'order' => 100,
+                    'permission' => ['edit_settings', 'view_backups', 'view_users', 'view_roles', 'view_logs'],
+                ]);
+            
+            // Songs with submenu categories
+            $songs_menu = $menu->add('<i class="link-icon" data-feather="music"></i> '.__('<span class="link-title">Manage Songs</span>') .'<i class="link-arrow" data-feather="chevron-down"></i>', [
+                'class' => 'nav-item',
+            ])
+                ->data([
+                    'order' => 101,
+                    'activematches' => [
+                        'admin/songs*',
+                        'admin/categories*',
+                    ],
+                    // 'permission' => ['view_songs', 'view_categories'],
+                ]);
+            $songs_menu->link->attr([
+                'class' => 'nav-link',
+                'href' => '#lyrical_songs',
+                'data-toggle' => 'collapse',
+                'aria-expanded' => 'false',
+                'role' => 'button',
+                'aria-controls' => 'songs',
+            ]);
+
+            // Submenu: Song
+            $songs_menu->add(__('Song'), [
+                'route' => 'backend.songs',
+                'class' => 'nav-item collapse',
+                'id' => 'lyrical_songs',
+            ])
+                ->data([
+                    'order' => 102,
+                    'activematches' => 'admin/song*',
+                    'permission' => ['edit_songs'],
+                ])
+                ->link->attr([
+                    'class' => 'nav-link',
+                    'id' => 'songs',
+                ]);
+
+            // Submenu: Artist
+            $songs_menu->add(__('Artist'), [
+                'route' => 'backend.artists',
+                'class' => 'nav-item collapse',
+                'id' => 'lyrical_songs',
+            ])
+                ->data([
+                    'order' => 103,
+                    'activematches' => 'admin/artists*',
+                    'permission' => ['edit_artists'],
+                ])
+                ->link->attr([
+                    'class' => 'nav-link',
+                    'id' => 'songs',
+                ]);
+
+            // Submenu: Categories
+            $songs_menu->add(__('Categories'), [
+                'route' => 'backend.song_categories',
+                'class' => 'nav-item collapse',
+                'id' => 'lyrical_songs',
+            ])
+                ->data([
+                    'order' => 104,
+                    'activematches' => 'admin/song_categories*',
+                    'permission' => ['edit_song_categories'],
+                ])
+                ->link->attr([
+                    'class' => 'nav-link',
+                    'id' => 'songs',
+                ]);
+            
+            // Separator: Management
             $menu->add('Management', [
-                'class' => 'nav-title',
+                'class' => 'nav-item nav-category',
             ])
                 ->data([
                     'order' => 101,
@@ -53,7 +135,7 @@ class GenerateMenus
                 ]);
 
             // Settings
-            $menu->add('<i class="nav-icon fas fa-cogs"></i> Settings', [
+            $menu->add('<i class="link-icon" data-feather="settings"></i> <span class="link-title">'.__('Settings').'</span>', [
                 'route' => 'backend.settings',
                 'class' => 'nav-item',
             ])
@@ -67,7 +149,7 @@ class GenerateMenus
                 ]);
 
             // Backup
-            $menu->add('<i class="nav-icon fas fa-archive"></i> Backups', [
+            $menu->add('<i class="link-icon" data-feather="rotate-cw"></i> <span class="link-title">'.__('Backups').'</span>', [
                 'route' => 'backend.backups.index',
                 'class' => 'nav-item',
             ])
@@ -81,8 +163,8 @@ class GenerateMenus
                 ]);
 
             // Access Control Dropdown
-            $accessControl = $menu->add('<i class="nav-icon fa-solid fa-user-gear"></i> Access Control', [
-                'class' => 'nav-group',
+            $accessControl = $menu->add('<i class="link-icon" data-feather="unlock"></i> <span class="link-title">'.__('Access Control').'</span><i class="link-arrow" data-feather="chevron-down"></i>', [
+                'class' => 'nav-item',
             ])
                 ->data([
                     'order' => 104,
@@ -93,14 +175,19 @@ class GenerateMenus
                     'permission' => ['view_users', 'view_roles'],
                 ]);
             $accessControl->link->attr([
-                'class' => 'nav-link nav-group-toggle',
-                'href' => '#',
+                'class' => 'nav-link',
+                'href' => '#access',
+                'data-toggle' => 'collapse',
+                'aria-expanded' => 'false',
+                'role' => 'button',
+                'aria-controls' => 'access',
             ]);
 
             // Submenu: Users
-            $accessControl->add('<i class="nav-icon fa-solid fa-user-group"></i> Users', [
+            $accessControl->add('Users', [
                 'route' => 'backend.users.index',
-                'class' => 'nav-item',
+                'class' => 'nav-item collapse',
+                'id' => 'access',
             ])
                 ->data([
                     'order' => 105,
@@ -112,9 +199,10 @@ class GenerateMenus
                 ]);
 
             // Submenu: Roles
-            $accessControl->add('<i class="nav-icon fa-solid fa-user-shield"></i> Roles', [
+            $accessControl->add('Roles', [
                 'route' => 'backend.roles.index',
-                'class' => 'nav-item',
+                'class' => 'nav-item collapse',
+                'id' => 'access',
             ])
                 ->data([
                     'order' => 106,
@@ -125,10 +213,9 @@ class GenerateMenus
                     'class' => 'nav-link',
                 ]);
 
-            // Log Viewer
             // Log Viewer Dropdown
-            $accessControl = $menu->add('<i class="nav-icon fa-solid fa-list-check"></i> Log Viewer', [
-                'class' => 'nav-group',
+            $accessControl = $menu->add('<i class="link-icon" data-feather="pie-chart"></i> <span class="link-title">'.__('Log Viewer'). '</span><i class="link-arrow" data-feather="chevron-down"></i>', [
+                'class' => 'nav-item',
             ])
                 ->data([
                     'order' => 107,
@@ -138,14 +225,19 @@ class GenerateMenus
                     'permission' => ['view_logs'],
                 ]);
             $accessControl->link->attr([
-                'class' => 'nav-link nav-group-toggle',
-                'href' => '#',
+                'class' => 'nav-link',
+                'href' => '#log-viewer',
+                'data-toggle' => 'collapse',
+                'aria-expanded' => 'false',
+                'role' => 'button',
+                'aria-controls' => 'log-viewer',
             ]);
 
             // Submenu: Log Viewer Dashboard
-            $accessControl->add('<i class="nav-icon fa-solid fa-list"></i> Dashboard', [
+            $accessControl->add('Dashboard', [
                 'route' => 'log-viewer::dashboard',
-                'class' => 'nav-item',
+                'class' => 'nav-item collapse',
+                'id' => 'log-viewer',
             ])
                 ->data([
                     'order' => 108,
@@ -156,9 +248,10 @@ class GenerateMenus
                 ]);
 
             // Submenu: Log Viewer Logs by Days
-            $accessControl->add('<i class="nav-icon fa-solid fa-list-ol"></i> Logs by Days', [
+            $accessControl->add('Logs by Days', [
                 'route' => 'log-viewer::logs.list',
-                'class' => 'nav-item',
+                'class' => 'nav-item collapse',
+                'id' => 'log-viewer',
             ])
                 ->data([
                     'order' => 109,
@@ -166,6 +259,28 @@ class GenerateMenus
                 ])
                 ->link->attr([
                     'class' => 'nav-link',
+                    'id' => 'log-viewer',
+                ]);
+
+            // Separator: Support Me
+            $menu->add('Support Me', [
+                'class' => 'nav-item nav-category',
+            ])
+                ->data([
+                    'order' => 110,
+                    'permission' => ['edit_settings', 'view_backups', 'view_users', 'view_roles', 'view_logs'],
+            ]);
+            
+            $menu->add('<i class="link-icon" data-feather="hash"></i> <span class="link-title">'.__('Support Us').'</span>', [
+                'class' => 'nav-item',
+            ])
+                ->data([
+                    'order' => 111,
+                ])
+                ->link->attr([
+                    'class' => 'nav-link',
+                    'target' => '_blank',
+                    'href' => 'https://happyarif.com',
                 ]);
 
             // Access Permission Check

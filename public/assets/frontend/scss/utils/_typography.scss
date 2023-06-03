@@ -1,0 +1,46 @@
+
+// font url
+$font-url: 'https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap';
+
+// font family
+$font-family: (
+    ff: (
+        body: "'Manrope', 'notosans', sans-serif",
+        heading: "'Manrope', 'notosans', sans-serif",
+        p: "'Manrope', 'notosans', sans-serif",
+        fontawesome: '"Font Awesome 6 Pro"',
+    )
+);
+
+// font weight
+$font-scale: (
+    fw: (
+        normal: normal,
+        light: 300,
+        regular: 400,
+        medium: 500,
+        sbold: 600,
+        bold: 700,
+        ebold: 800,
+        black: 900,
+    )
+);
+
+
+
+// font size
+$font-size: (
+    
+    fz: (
+        body: 16px,
+        p: 16px,
+        h1: 85px,
+        h2: 60px,
+        h3: 38px,
+        h4: 24px,
+        h5: 22px,
+        h6: 20px,
+    )
+);
+
+

@@ -1,0 +1,70 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  03. Artist CSS START
+/*----------------------------------------*/
+.artists-list {
+    & .likhun-box {
+        margin-bottom: 30px;
+        & .likhun-inner-box a{
+            overflow: hidden;
+            background-color: var(--tp-theme-2);
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px 30px;
+            margin-bottom: 20px;
+            & img {
+                width: 100%;
+                max-width: 80px;
+                margin-bottom: 5px;
+            }
+            & span.artist-name {
+                display: block;
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+/*----------------------------------------*/
+.music-box-inside {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    // border-radius: 10px;
+    position: relative;
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color: var(--tp-theme-2);
+        & .music-box-inside__left {
+            background-color: var(--tp-theme-2);
+        }
+        & .music-box-inside__right {
+            a {
+                color: var(--tp-theme-1);
+            }
+        }
+    }
+    &__left{
+        padding: 20px;
+        background-color: var(--tp-theme-2);
+        margin-right: 20px;
+        & img {
+            width: 100%;
+            max-width: 80px;
+            margin-bottom: 5px;
+        }
+    }
+    &__right{
+        width: 100%;
+        padding: 10px;
+        text-align: left;
+        a {
+            font-size: 18px;
+            margin-bottom: 5px;
+            line-height: 28px;
+        }
+    }
+}

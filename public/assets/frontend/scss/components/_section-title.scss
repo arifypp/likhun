@@ -1,0 +1,150 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  05. Section Tilte CSS START
+/*----------------------------------------*/
+.section{
+    &__wrapper{
+        position: relative;
+        padding: 10px 280px;
+
+        & .section__title{
+            position: relative;
+            font-size: 40px;
+            line-height: 1.2;
+            padding: 20px 0;
+            &::after{
+                position: absolute;
+                content: '';
+                background: var(--tp-theme-1);
+                width: 120px;
+                height: 3px;
+                margin: 0 auto;
+                left: 0px;
+                right: 0;
+                bottom: 0px;
+            }
+            @media #{$xl} {
+                font-size: 35px;
+            }
+            @media #{$lg,$md,$sm} {
+                font-size: 28px;
+            }
+            @media #{$xs} {
+                font-size: 26px;
+            }
+        }
+        & .big-title{
+            font-size: 50px;
+            @media #{$xl} {
+                font-size: 40px;
+            }
+            @media #{$lg,$md,$sm} {
+                font-size: 30px;
+            }
+            @media #{$xs} {
+                font-size: 20px;
+            }
+        }
+    }
+    &__title{
+        font-size: 40px;
+        line-height: 1.4;
+        padding-top: 20px;
+        padding-bottom: 15px;
+        @media #{$xl} {
+            font-size: 35px;
+        }
+        @media #{$lg,$sm} {
+            font-size: 28px;
+        }
+        @media #{$xs} {
+            font-size: 26px;
+        }
+    }
+    & .big-title{
+        font-size: 50px;
+        @media #{$xl} {
+            font-size: 40px;
+        }
+        @media #{$lg,$md,$sm} {
+            font-size: 30px;
+        }
+        @media #{$xs} {
+            font-size: 20px;
+        }
+    }
+    &__sub_title-1{
+        color: var(--tp-text-2);
+        font-size: 15px;
+        line-height: 1.2;
+        font-weight: var(--tp-fw-medium);
+        letter-spacing: 5px;
+        text-transform: uppercase;
+    }
+}
+.section-2{
+    &__wrapper{
+        & .st-1{
+            font-size: 14px;
+            font-weight: var(--tp-fw-sbold);
+            display: inline-block;
+            color: var(--tp-theme-1);
+            position: relative;
+            margin-bottom: 5px;
+            &::before{
+                position: absolute;
+                content: '';
+                background: var(--tp-theme-1);
+                width: 40px;
+                height: 2px;
+                top: 50%;
+                right: -50px;
+            }
+        }
+        & .st-2{
+            font-size: 16px;
+            font-weight: var(--tp-fw-sbold);
+            display: inline-block;
+            color: var(--tp-theme-1);
+            position: relative;
+            margin-bottom: 5px;
+            &::before{
+                position: absolute;
+                content: '';
+                background: var(--tp-theme-1);
+                width: 70px;
+                height: 2px;
+                top: 50%;
+                right: -80px;
+            }
+            &::after{
+                position: absolute;
+                content: '';
+                background: var(--tp-theme-1);
+                width: 70px;
+                height: 2px;
+                top: 50%;
+                left: -80px;
+            }
+        }
+        & .section__title{
+            font-size: 60px;
+            @media #{$sm,$xs} {
+                font-size: 40px;
+            }
+        }
+        & .section__title-sd{
+            font-size: 50px;
+            @media #{$sm,$xs} {
+                font-size: 40px;
+            }
+        }
+        & .section__title-sm{
+            font-size: 40px;
+            @media #{$sm,$xs} {
+                font-size: 30px;
+            }
+        }
+    }
+}

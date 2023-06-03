@@ -1,2 +1,2 @@
 @props(["small"=>""])
-<button onclick="window.history.back();" class="btn btn-warning ms-1 {{($small=='true')? 'btn-sm' : ''}}" data-toggle="tooltip" title="{{__('Cancel')}}"><i class="fas fa-reply"></i>&nbsp;{{ $slot }}</button>
+<button onclick="window.history.back();" class="btn btn-warning ms-1 {{($small=='true')? 'btn-sm' : ''}}" data-toggle="tooltip" title="{{__('Cancel')}}"><i data-feather="delete" width="16" height="16"></i>&nbsp;{{ $slot }}</button>

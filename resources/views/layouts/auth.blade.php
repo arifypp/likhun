@@ -10,7 +10,7 @@
     <meta name="keyword" content="{{ setting('meta_keyword') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title }} - {{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')  - {{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -18,6 +18,15 @@
     <!-- Styles -->
     @stack('before-styles')
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/notosans.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/font-awesome-pro.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/spacing.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
     @stack('after-styles')
 
     <!-- Analytics -->
@@ -25,12 +34,33 @@
 </head>
 
 <body>
-    <div class="font-sans text-gray-900 antialiased">
-        {{ $slot }}
-    </div>
+      <!-- Preloader -->
+      <div class="preloader"></div>
+      <!-- pre loader area end -->
+      
+      <main>
+        @yield('content')
+      </main>
 
     <!-- Scripts -->
     <script type="module" src="{{ asset('js/app.js') }}" defer></script>
+    <!-- JS here -->
+    <script src="{{ asset('assets/frontend/js/vendor/jquery.js') }}"></script>
+    <script src="{{ asset('assets/frontend/js/vendor/waypoints.js') }}"></script>
+    <script src="{{ asset('assets/frontend/js/bootstrap-bundle.js') }}"></script>
+    <script src="{{ asset('assets/frontend/js/parallax.js') }}"></script>
+    <script src="{{ asset('assets/frontend/js/nice-select.js') }}"></script>
+    <script src="{{ asset('assets/frontend/js/wow.js') }}"></script>
+    <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('button[type="submit"]').click(function() {
+                $(this).prop('disabled', true);
+                $(this).html('<i class="fa fa-spinner fa-spin"></i> Please wait');
+                $(this).parents('form').submit();
+            });
+        });
+    </script>
 </body>
 
 </html>

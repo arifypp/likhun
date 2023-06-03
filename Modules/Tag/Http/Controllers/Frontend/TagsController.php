@@ -30,7 +30,7 @@ class TagsController extends Controller
         $this->module_path = 'tags';
 
         // module icon
-        $this->module_icon = 'fas fa-tags';
+        $this->module_icon = 'tag        ';
 
         // module model name, path
         $this->module_model = "Modules\Tag\Entities\Tag";

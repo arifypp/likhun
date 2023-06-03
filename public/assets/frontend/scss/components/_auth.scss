@@ -1,0 +1,111 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  00. Auth CSS START
+/*----------------------------------------*/
+.auth-wrapper {
+	background-color: var(--tp-theme-1);
+	height: 100%;
+	justify-content: center;
+	.hero-static {
+		height: 100vh;
+		flex-direction: column;
+		justify-content: center;
+
+		& h2{
+			padding: 10px 0;
+			color: var(--tp-white);
+			font-size: 40px;
+			font-weight: 500;
+			margin-bottom: 20px;
+		}
+		& p{
+			color: var(--tp-white);
+			font-size: 16px;
+			margin-bottom: 20px;
+		}
+	}
+	
+	& .remember {
+		display: flex;
+		justify-content: center;
+		flex-direction: row;
+		overflow: hidden;
+		& input {
+			cursor: pointer;
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+		}
+		
+		& label {
+			cursor: pointer;
+			margin-left: 10px;
+			line-height: 20px;
+		}
+	}
+
+	& input[type="text"], input[type="email"], & input[type="password"]  {
+		position: relative;
+		width: 100%;
+		height: 60px;
+		border: 1px solid transparent;
+		padding-left: 55px;
+		padding-right: 30px;
+		color: var(--tp-heading-primary);
+		border-radius: 6px;
+		font-weight: 500;
+		transition: .3s;
+		background: var(--tp-common-white);
+		&::-moz-placeholder {
+			color: var(--tp-grey-2);
+			font-size: 14px;
+			opacity: 1;
+		}
+		&::placeholder {
+			color: var(--tp-grey-2);
+			font-size: 14px;
+			opacity: 1;
+		}
+		&:focus{
+			border-color: var(--tp-theme-1);
+		}
+		&::after{
+			content: "\f007";
+			position: absolute;
+			left: 30px;
+			top: 18px;
+			font-family: "Font Awesome 5 Pro";
+			color: var(--tp-heading-primary);
+		}
+	}
+	& textarea{
+		width: 100%;
+		height: 250px;
+		border: 1px solid transparent;
+		padding-left: 55px;
+		padding-right: 30px;
+		padding-top: 15px;
+		color: var(--tp-heading-primary);
+		font-weight: 500;
+		transition: .3s;
+		border-radius: 6px;
+		box-shadow: none;
+		outline: none;
+		background: #f9f9f9;
+		resize: none;
+		&::-moz-placeholder {
+			color: #aeaeae;
+			font-size: 14px;
+			opacity: 1;
+		}
+		&::placeholder {
+			color: #aeaeae;
+			font-size: 14px;
+			opacity: 1;
+		}
+		&:focus{
+			border-color: var(--tp-theme-1);
+		}
+	}
+}

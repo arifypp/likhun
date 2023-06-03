@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('backend.layouts.master')
 
 @section('title') {{ __($module_action) }} {{ __($module_title) }} @endsection
 
@@ -88,8 +88,8 @@
                                 {{ $module_name_singular->created_by }}
                             </td>
                             <td class="text-end">
-                                <a href='{!!route("backend.$module_name.edit", $module_name_singular)!!}' class='btn btn-sm btn-primary mt-1' data-toggle="tooltip" title="Edit {{ ucwords(Str::singular($module_name)) }}"><i class="fas fa-wrench"></i></a>
-                                <a href='{!!route("backend.$module_name.show", $module_name_singular)!!}' class='btn btn-sm btn-success mt-1' data-toggle="tooltip" title="Show {{ ucwords(Str::singular($module_name)) }}"><i class="fas fa-tv"></i></a>
+                                <a data-toggle="tooltip" title="Edit" href='{!!route("backend.$module_name.edit", $module_name_singular)!!}' class='btn btn-sm btn-primary mt-1' ><i data-feather="edit-3"></i></a>
+                                <a data-toggle="tooltip" title="Show" href='{!!route("backend.$module_name.show", $module_name_singular)!!}' class='btn btn-sm btn-success mt-1'><i data-feather="fas fa-tv"></i></a>
                             </td>
                         </tr>
                         @endforeach
