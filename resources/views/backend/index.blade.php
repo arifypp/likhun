@@ -5,17 +5,18 @@
 @endsection
 @section('content')
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
-        <div>
-            <h4 class="mb-3 mb-md-0"> @lang("Welcome to", ['name'=>config('app.name')])</h4>
-        </div>
-        <div class="d-flex align-items-center flex-wrap text-nowrap">
-            <!-- Show date and time -->
-            <div class="d-none d-md-block">
-                <p class="mb-0 ml-3 text-muted">Today: {{ date_today() }}</p>
+            <div>
+        {{ config('app.version') }}
+                <h4 class="mb-3 mb-md-0"> @lang("Welcome to", ['name'=>config('app.name')]) </h4>
+            </div>
+            <div class="d-flex align-items-center flex-wrap text-nowrap">
+                <!-- Show date and time -->
+                <div class="d-none d-md-block">
+                    <p class="mb-0 ml-3 text-muted">Today: {{ date_today() }}</p>
+                </div>
             </div>
         </div>
-        </div>
-
+        <!-- Show latest update -->
         <div class="row">
         <div class="col-12 col-xl-12 stretch-card">
             <div class="row flex-grow">
@@ -412,4 +413,16 @@
             </div>
         </div>
         </div> <!-- row -->
+
+        <!-- admin.dashboard.blade.php -->
+        @if ($latestUpdate)
+            <div class="alert alert-info col-12">
+                New update available! Version: {{ $latestUpdate->version }}
+                <br>
+                Release Notes: {!! nl2br(e($latestUpdate->release_notes)) !!}
+                <br>
+                <a href="{{ route('admin.update.perform') }}" class="btn btn-primary">Update</a>
+            </div>
+        @endif
+
 @endsection

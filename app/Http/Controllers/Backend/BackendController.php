@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\UpdateVersion;
 use App\Http\Controllers\Controller;
 
 class BackendController extends Controller
@@ -13,6 +14,7 @@ class BackendController extends Controller
      */
     public function index()
     {
-        return view('backend.index');
+        $latestUpdate = UpdateVersion::latest()->first();
+        return view('backend.index', compact('latestUpdate'));
     }
 }
