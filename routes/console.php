@@ -32,8 +32,8 @@ Artisan::command('check-updates', function () {
         'Accept' => 'application/vnd.github.v3+json',
     ])->get("https://api.github.com/repos/{$username}/{$repository}/commits/main")->json();
 
-    if (isset($latestCommit['sha'])) {
-        $latestVersion = substr($latestCommit['sha'], 0, 7);
+    if (isset($latestRelease['sha'])) {
+        $latestVersion = substr($latestRelease['sha'], 0, 7);
         $currentVersion = Config::get('app.version');
 
         if ($latestVersion !== $currentVersion) {
@@ -41,7 +41,7 @@ Artisan::command('check-updates', function () {
             // Example: UpdateVersion model with a version and release notes field
             UpdateVersion::create([
                 'version' => $latestVersion,
-                'release_notes' => '',
+                'release_notes' => $latestRelease['commit']['message'],
             ]);
 
             $this->info('A new update is available. Please run the update command.');

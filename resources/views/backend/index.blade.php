@@ -6,7 +6,6 @@
 @section('content')
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
             <div>
-        {{ config('app.version') }}
                 <h4 class="mb-3 mb-md-0"> @lang("Welcome to", ['name'=>config('app.name')]) </h4>
             </div>
             <div class="d-flex align-items-center flex-wrap text-nowrap">
@@ -16,6 +15,22 @@
                 </div>
             </div>
         </div>
+        <!-- admin.dashboard.blade.php -->
+        @if ($latestUpdate)
+            <div class="alert alert-info col-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="float-left">
+                            <p class="mb-0 ml-3 text-muted">New update available! Version: {{ $latestUpdate->version }}</p>
+                            <p class="mb-0 ml-3 text-muted">Release Notes: {!! nl2br(e($latestUpdate->release_notes)) !!}</p>
+                        </div>
+                        <div class="float-right">
+                            <a href="{{ route('backend.admin.update.perform') }}" class="btn btn-primary">Update</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         <!-- Show latest update -->
         <div class="row">
         <div class="col-12 col-xl-12 stretch-card">
@@ -413,16 +428,5 @@
             </div>
         </div>
         </div> <!-- row -->
-
-        <!-- admin.dashboard.blade.php -->
-        @if ($latestUpdate)
-            <div class="alert alert-info col-12">
-                New update available! Version: {{ $latestUpdate->version }}
-                <br>
-                Release Notes: {!! nl2br(e($latestUpdate->release_notes)) !!}
-                <br>
-                <a href="{{ route('admin.update.perform') }}" class="btn btn-primary">Update</a>
-            </div>
-        @endif
 
 @endsection

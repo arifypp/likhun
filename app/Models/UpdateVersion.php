@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class UpdateVersion extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'version',
+        'release_notes',
+    ];
 }

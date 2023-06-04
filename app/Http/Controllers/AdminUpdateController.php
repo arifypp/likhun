@@ -19,8 +19,17 @@ class AdminUpdateController extends Controller
 
         // Run any required update scripts or commands
         Artisan::call('migrate --force');
+        // Run Composer update commands
+        exec('composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev');
+        // Clear caches
         Artisan::call('cache:clear');
-
+        Artisan::call('config:clear');
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
+        // Restart queues
+        Artisan::call('queue:restart');
+        // Restart Horizon
+        Artisan::call('horizon:terminate');
         // Disable maintenance mode
         Artisan::call('up');
 
