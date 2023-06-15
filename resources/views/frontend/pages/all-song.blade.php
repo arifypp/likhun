@@ -10,10 +10,10 @@
                 <div class="breadcrumb-menu">
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><span>Artits Page</span></li>
+                        <li><span>Lyrics</span></li>
                     </ul>
                 </div>
-                <h3 class="page__title mt-20">Artits Page</h3>      
+                <h3 class="page__title mt-20">Lyrics</h3>
             </div>
         </div>
         </div>
@@ -40,125 +40,28 @@
                         </form>
                     </div>
                     <ul class="likhun-box row list-unstyled">
-
+                        @foreach($songs as $key => $value)
                         <li class="likhun-inner-box text-center col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="music-box-inside border">
-                            <div class="music-box-inside__left">
-                                <img src="{{ asset('assets/frontend/img/music-icon.png') }}" alt="artist">
+                            <div class="music-box-inside border">
+                                <div class="music-box-inside__left">
+                                    <img src="{{ asset('assets/frontend/img/music-icon.png') }}" alt="artist">
+                                </div>
+                                <div class="music-box-inside__right">
+                                    <a href="{{ route('frontend.songs.show', $value->slug) }}" class="d-block">
+                                        <strong class="artist-name d-lg-block">Song : {{ $value->title }}</strong>
+                                        <span class="artist-name d-lg-block">Artist : {{ $value->artist->name }}</span>
+                                        <span class="artist-name d-lg-block">Brand : {{ $value->category->name }}</span>
+                                    </a>                                 
+                                </div>
                             </div>
-                            <div class="music-box-inside__right">
-                                <a href="#" class="d-block">
-                                    <strong class="artist-name d-lg-block">Song : Murir Tin (মুড়ির টিন)</strong>
-                                    <span class="artist-name d-lg-block">Artist : আশিক</span>
-                                    <span class="artist-name d-lg-block">Singer : আশিক</span>
-                                </a>                                 
-                            </div>
-                        </div>
                         </li>
-                        <li class="likhun-inner-box text-center col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="music-box-inside border">
-                            <div class="music-box-inside__left">
-                                <img src="{{ asset('assets/frontend/img/music-icon.png') }}" alt="artist">
-                            </div>
-                            <div class="music-box-inside__right">
-                                <a href="#" class="d-block">
-                                    <strong class="artist-name d-lg-block">Song : Murir Tin (মুড়ির টিন)</strong>
-                                    <span class="artist-name d-lg-block">Artist : আশিক</span>
-                                    <span class="artist-name d-lg-block">Singer : আশিক</span>
-                                </a>                                 
-                            </div>
-                        </div>
-                        </li>
-                        <li class="likhun-inner-box text-center col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="music-box-inside border">
-                            <div class="music-box-inside__left">
-                                <img src="{{ asset('assets/frontend/img/music-icon.png') }}" alt="artist">
-                            </div>
-                            <div class="music-box-inside__right">
-                                <a href="#" class="d-block">
-                                    <strong class="artist-name d-lg-block">Song : Murir Tin (মুড়ির টিন)</strong>
-                                    <span class="artist-name d-lg-block">Artist : আশিক</span>
-                                    <span class="artist-name d-lg-block">Singer : আশিক</span>
-                                </a>                                 
-                            </div>
-                        </div>
-                        </li>
-                        <li class="likhun-inner-box text-center col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="music-box-inside border">
-                            <div class="music-box-inside__left">
-                                <img src="{{ asset('assets/frontend/img/music-icon.png') }}" alt="artist">
-                            </div>
-                            <div class="music-box-inside__right">
-                                <a href="#" class="d-block">
-                                    <strong class="artist-name d-lg-block">Song : Murir Tin (মুড়ির টিন)</strong>
-                                    <span class="artist-name d-lg-block">Artist : আশিক</span>
-                                    <span class="artist-name d-lg-block">Singer : আশিক</span>
-                                </a>                                 
-                            </div>
-                        </div>
-                        </li>
-                        <li class="likhun-inner-box text-center col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="music-box-inside border">
-                            <div class="music-box-inside__left">
-                                <img src="{{ asset('assets/frontend/img/music-icon.png') }}" alt="artist">
-                            </div>
-                            <div class="music-box-inside__right">
-                                <a href="#" class="d-block">
-                                    <strong class="artist-name d-lg-block">Song : Murir Tin (মুড়ির টিন)</strong>
-                                    <span class="artist-name d-lg-block">Artist : আশিক</span>
-                                    <span class="artist-name d-lg-block">Singer : আশিক</span>
-                                </a>                                 
-                            </div>
-                        </div>
-                        </li>
-                        <li class="likhun-inner-box text-center col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="music-box-inside border">
-                            <div class="music-box-inside__left">
-                                <img src="{{ asset('assets/frontend/img/music-icon.png') }}" alt="artist">
-                            </div>
-                            <div class="music-box-inside__right">
-                                <a href="#" class="d-block">
-                                    <strong class="artist-name d-lg-block">Song : Murir Tin (মুড়ির টিন)</strong>
-                                    <span class="artist-name d-lg-block">Artist : আশিক</span>
-                                    <span class="artist-name d-lg-block">Singer : আশিক</span>
-                                </a>                                 
-                            </div>
-                        </div>
-                        </li>
-                        <li class="likhun-inner-box text-center col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="music-box-inside border">
-                            <div class="music-box-inside__left">
-                                <img src="{{ asset('assets/frontend/img/music-icon.png') }}" alt="artist">
-                            </div>
-                            <div class="music-box-inside__right">
-                                <a href="#" class="d-block">
-                                    <strong class="artist-name d-lg-block">Song : Murir Tin (মুড়ির টিন)</strong>
-                                    <span class="artist-name d-lg-block">Artist : আশিক</span>
-                                    <span class="artist-name d-lg-block">Singer : আশিক</span>
-                                </a>                                 
-                            </div>
-                        </div>
-                        </li>
-                        <li class="likhun-inner-box text-center col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="music-box-inside border">
-                            <div class="music-box-inside__left">
-                                <img src="{{ asset('assets/frontend/img/music-icon.png') }}" alt="artist">
-                            </div>
-                            <div class="music-box-inside__right">
-                                <a href="#" class="d-block">
-                                    <strong class="artist-name d-lg-block">Song : Murir Tin (মুড়ির টিন)</strong>
-                                    <span class="artist-name d-lg-block">Artist : আশিক</span>
-                                    <span class="artist-name d-lg-block">Singer : আশিক</span>
-                                </a>                                 
-                            </div>
-                        </div>
-                        </li>
+                        @endforeach
                     </ul>
                     <!-- Pagination -->
                     <div class="song-pagination mt-20">
                         <div class="row">
                             <div class="col-6">
-                                <a href="#" class="tp-btn btn-primary btn-sm btn-block w-100">Previous</a>
+                                <a href="#" class="tp-btn btn-primary btn-sm btn-block w-100 float-left">Previous</a>
                             </div>
                             <div class="col-6">
                                 <a href="#" class="tp-btn btn-primary btn-sm btn-block w-100 float-right">Next</a>

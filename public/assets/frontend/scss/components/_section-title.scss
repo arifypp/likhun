@@ -7,7 +7,12 @@
     &__wrapper{
         position: relative;
         padding: 10px 280px;
-
+        @media #{$md} {
+            padding: 10px 100px;
+        }
+        @media #{$xs,$sm} {
+            padding: 10px 10px;
+        }
         & .section__title{
             position: relative;
             font-size: 40px;

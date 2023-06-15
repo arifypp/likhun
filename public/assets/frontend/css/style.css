@@ -1377,6 +1377,16 @@ input[type=color] {
   position: relative;
   padding: 10px 280px;
 }
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .section__wrapper {
+    padding: 10px 100px;
+  }
+}
+@media (max-width: 575px), only screen and (min-width: 576px) and (max-width: 767px) {
+  .section__wrapper {
+    padding: 10px 10px;
+  }
+}
 .section__wrapper .section__title {
   position: relative;
   font-size: 40px;
@@ -2314,9 +2324,10 @@ input[type=color] {
   text-align: center;
   padding: 0 180px;
 }
-@media (max-width: 575px) {
+@media only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
   .slider-contant {
     margin-top: 105px;
+    padding: 0 20px;
   }
 }
 .slider-contant span {
@@ -2340,7 +2351,7 @@ input[type=color] {
 }
 @media only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
   .slider-contant .slider-subtitle {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 .slider-contant .slider-title {
@@ -2349,12 +2360,17 @@ input[type=color] {
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px), only screen and (min-width: 992px) and (max-width: 1199px) {
   .slider-contant .slider-title {
-    font-size: 100px;
+    font-size: 40px;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
   .slider-contant .slider-title {
-    font-size: 70px;
+    font-size: 30px;
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
+  .slider-contant .slider-title {
+    font-size: 25px;
   }
 }
 .slider-contant .slider-sub-title {
@@ -2369,6 +2385,11 @@ input[type=color] {
   .slider-contant .slider-sub-title {
     font-size: 16px;
     padding: 10px 40px;
+  }
+}
+@media (max-width: 575px) {
+  .slider-contant .slider-sub-title {
+    display: none;
   }
 }
 .slider-contant .slider-button {
@@ -2720,6 +2741,11 @@ input[type=color] {
 }
 .subscribe-form input:focus::placeholder {
   opacity: 0;
+}
+@media only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
+  .subscribe-form input {
+    padding-right: 20px;
+  }
 }
 .subscribe-form button {
   position: absolute;

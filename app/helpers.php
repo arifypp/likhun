@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use App\Models\Backend\Song;
+use App\Models\Backend\Artist;
+use Illuminate\Support\Facades\Log;
 
 /*
  * Global helpers file with misc functions.
@@ -532,4 +534,64 @@ return call_user_func_array('Request::is', (array)$path) ? 'true' : 'false';
 
 function show_class($path) {
 return call_user_func_array('Request::is', (array)$path) ? 'show' : '';
+}
+
+/**
+ * Related lyrics
+ */
+if (! function_exists('related_lyrics')) {
+    /**
+     * Return Date with weekday.
+     *
+     * Carbon Locale will be considered here
+     * Example:
+     * শুক্রবার, ২৪ জুলাই ২০২০
+     * Friday, July 24, 2020
+     */
+    function related_lyrics($lyric)
+    {
+        $lyrics = Song::where('id', '!=', $lyric->id)->where('song_artist_id', $lyric->song_artist_id)->where('song_category_id', $lyric->song_category_id)->where('title', '!=', $lyric->title)->where('status', 'published')->orderBy('id', 'desc')->limit(3)->get();
+
+        return $lyrics;
+    }
+}
+
+/**
+ * Popular lyrics
+ */
+if (! function_exists('popular_lyrics')) {
+    /**
+     * Return Date with weekday.
+     *
+     * Carbon Locale will be considered here
+     * Example:
+     * শুক্রবার, ২৪ জুলাই ২০২০
+     * Friday, July 24, 2020
+     */
+    function popular_lyrics()
+    {
+        $lyrics = Song::where('status', 'published')->orderBy('hits', 'desc')->limit(8)->get();
+
+        return $lyrics;
+    }
+}
+
+/**
+ * Popular Artists
+ */
+if (! function_exists('popular_artists')) {
+    /**
+     * Return Date with weekday.
+     *
+     * Carbon Locale will be considered here
+     * Example:
+     * শুক্রবার, ২৪ জুলাই ২০২০
+     * Friday, July 24, 2020
+     */
+    function popular_artists()
+    {
+        $artists = Artist::where('status', 'active')->where('is_featured', 'yes')->orderBy('hits', 'desc')->limit(20)->get();
+
+        return $artists;
+    }
 }

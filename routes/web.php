@@ -36,16 +36,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
     Route::get('custompage', 'FrontendController@custompage')->name('custompage');
     Route::get('lyrics', 'SongController@index')->name('song');
     Route::get('lyrics/{slug}', 'SongController@show')->name('song.show');
-    Route::get('/single', function(){
-        return view('frontend.single');
-    });
-    Route::get('/artist', function(){
-        return view('frontend.artist');
-    });
-    Route::get('/all-songs', function(){
-        return view('frontend.all-songs');
-    });
-
+    Route::get('/all-songs', 'SongController@index')->name('all-songs');
+    Route::get('/all-songs/{slug}', 'SongController@show')->name('songs.show');
+    Route::get('/search/all-songs', 'SongController@search')->name('song.search');
+    
     Route::group(['middleware' => ['auth']], function () {
         /*
         *

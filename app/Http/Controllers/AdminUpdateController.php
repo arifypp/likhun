@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\UpdateVersion;
 use Illuminate\Support\Facades\Artisan;
 
 class AdminUpdateController extends Controller
@@ -32,6 +33,10 @@ class AdminUpdateController extends Controller
         Artisan::call('horizon:terminate');
         // Disable maintenance mode
         Artisan::call('up');
+
+        // Delete the update information from the database or remove the notification from the admin dashboard
+        // Example: UpdateVersion model with a version and release notes field
+        UpdateVersion::truncate();
 
         // Redirect the admin back to the dashboard or display a success message
         return redirect()->route('admin.dashboard')->with('success', 'Application updated successfully');

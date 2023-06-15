@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\LyricViewed;
 use App\Models\Backend\Song;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,13 +40,13 @@ class SongController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         // return "Welcome to Song Page";
-        $song = Song::orderBy('id', 'desc')->paginate(10);
-
-        return view('frontend.pages'. '.' . $this->module_path, compact('song'));
+        $songs = Song::where('status', 'published')->orderBy('id', 'desc')->paginate(12);
+        return view('frontend.pages' . '.' . $this->module_path, compact('songs'))
+        ->with('i', ($request->input('page', 1) - 1) * 12);
     }
 
     /**
@@ -67,17 +68,30 @@ class SongController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
         //
+        $song = Song::where('slug', $slug)->first(['id', 'title', 'slug', 'song_artist_id', 'song_category_id', 'short_description', 'status', 'hits', 'created_at', 'updated_at']);
+
+        event(new LyricViewed($song));
+
+        return view('frontend.pages' . '.' . $this->module_path . '-details', compact('song'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function search(Request $request)
     {
         //
+        $lyricsSearch = $request->input('lyrics_search');
+
+        // Retrieve the songs that match the search query
+        $songs = Song::where('title', 'like', '%'.$lyricsSearch.'%')
+                     ->orWhere('short_description', 'like', '%'.$lyricsSearch.'%')
+                     ->paginate(12);
+    
+        return $songs;
     }
 
     /**
