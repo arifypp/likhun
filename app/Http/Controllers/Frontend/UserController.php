@@ -48,6 +48,35 @@ class UserController extends Controller
         $this->module_model = "App\Models\User";
     }
 
+    
+    /**
+     * Display a listing of the resource.
+     */
+
+     public function dashboard()
+     {
+         $module_title = $this->module_title;
+         $module_name = $this->module_name;
+         $module_path = $this->module_path;
+         $module_icon = $this->module_icon;
+         $module_model = $this->module_model;
+         $module_name_singular = Str::singular($module_name);
+ 
+         $module_action = 'Dashboard';
+ 
+         $page_heading = ucfirst($module_title);
+         $title = $page_heading.' '.ucfirst($module_action);
+ 
+         $users = $module_model::all();
+ 
+         Log::info("'$title' viewed by User:".auth()->user()->name.'(ID:'.auth()->user()->id.')');
+ 
+         return view(
+             'frontend.users.dashboard',
+             compact('module_title', 'module_name', 'module_path', 'module_icon', 'module_action', 'module_name_singular', 'page_heading', 'title', 'users')
+         );
+     } 
+
     /**
      * Display the specified resource.
      *

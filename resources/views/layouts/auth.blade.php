@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/notosans.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/font-awesome-pro.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/spacing.css') }}">
+    <link href="{{ asset('assets/backend/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
     @stack('after-styles')
 
@@ -51,6 +52,7 @@
     <script src="{{ asset('assets/frontend/js/parallax.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/nice-select.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/wow.js') }}"></script>
+    <script src="{{ asset('assets/backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -60,6 +62,34 @@
                 $(this).parents('form').submit();
             });
         });
+    </script>
+    <script>
+         $(function(){
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            })
+
+            //Success Message 
+            @if(Session::has('success'))
+            Toast.fire({
+               icon: 'success',
+               title: '{{ Session::get("success") }}',
+            })
+            @endif
+
+            // Error Message
+            @if(Session::has('error'))
+            Toast.fire({
+               icon: 'error',
+               title: '{{ Session::get("error") }}',
+            })
+            @endif
+
+         });
     </script>
 </body>
 

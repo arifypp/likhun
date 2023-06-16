@@ -42,7 +42,15 @@ class AuthenticatedSessionController extends Controller
 
             event(new UserLoginSuccess($request, auth()->user()));
 
-            return redirect()->intended(RouteServiceProvider::HOME);
+            // return redirect()->intended(RouteServiceProvider::HOME);
+
+            // if user is admin take admin  dashboard else take user dashboard
+            if (auth()->user()->hasRole('admin')) {
+                return redirect()->intended(RouteServiceProvider::HOME);
+            } else {
+                return redirect()->route('frontend.users.dashboard');
+            }
+
         }
 
         return back()->withErrors([

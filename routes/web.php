@@ -42,13 +42,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
     
     Route::group(['middleware' => ['auth']], function () {
         /*
-        *
+        * ---------------------------------------------------------------------
         *  Users Routes
-        *
         * ---------------------------------------------------------------------
         */
         $module_name = 'users';
         $controller_name = 'UserController';
+        Route::get('/user-dashboard', 'UserController@dashboard')->name('users.dashboard');
         Route::get('profile/{id}', ['as' => "$module_name.profile", 'uses' => "$controller_name@profile"]);
         Route::get('profile/{id}/edit', ['as' => "$module_name.profileEdit", 'uses' => "$controller_name@profileEdit"]);
         Route::patch('profile/{id}/edit', ['as' => "$module_name.profileUpdate", 'uses' => "$controller_name@profileUpdate"]);

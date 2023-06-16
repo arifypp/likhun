@@ -903,5 +903,61 @@
 		})
 	}
 
+	// sidebarCollapse on click hide parent col-md-3 and .profile-dashboard parent col-md-9 change to col-md-12
+	if (jQuery("#sidebarCollapse").length > 0) {
+		const sidebarCollapse = document.querySelector('#sidebarCollapse');
+		sidebarCollapse.addEventListener('click', function() {
+		  const append = document.querySelector('.col-md-3');
+		  append.classList.add('slide-out');
+	  
+		  const append2 = document.querySelector('.profile-dashboard');
+		  
+		const parent = append2.parentNode.classList.contains('col-md-9');
+		const showMenu = document.querySelector('.show-menu');
+		
+	  	  
+		  setTimeout(function() {
+			append.classList.add('d-none');
+			append.classList.remove('slide-out');
+			if(parent){
+				append2.parentNode.classList.remove('col-md-9');
+				append2.parentNode.classList.add('col-md-12');
+			}
+			//  .show-menu display block important
+			showMenu.classList.remove('d-none');
+			showMenu.classList.add('d-block');
+		  }, 500);
+		});
+	  }
+
+	  // sidebarOpen click open sidebarCollapse
+	  if ( jQuery('#sidebarOpen').length > 0 ) {
+		const sidebarOpen = document.querySelector('#sidebarOpen');
+		sidebarOpen.addEventListener('click', function() {
+		  const append = document.querySelector('.col-md-3');
+		  append.classList.add('slide-in');
+	  
+		  const append2 = document.querySelector('.profile-dashboard');
+		  const parent = append2.parentNode.classList.contains('col-md-12');
+		  const showMenu = document.querySelector('.show-menu');
+	  
+		  setTimeout(function() {
+			append.classList.add('d-block');
+			append.classList.remove('d-none');
+			append.classList.remove('slide-in');
+			if(parent){
+				append2.parentNode.classList.remove('col-md-12');
+				append2.parentNode.classList.add('col-md-9');
+			}
+			//  .show-menu display block important
+			showMenu.classList.remove('d-block');
+			showMenu.classList.add('d-none');
+		}, 500);
+
+		});
+	  }
+	  
+	  
+	  
 
 })(jQuery);

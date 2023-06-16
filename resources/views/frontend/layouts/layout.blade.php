@@ -31,6 +31,7 @@
         <link rel="stylesheet" href="{{ asset('assets/frontend/css/notosans.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/frontend/css/font-awesome-pro.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/frontend/css/spacing.css') }}">
+        <link href="{{ asset('assets/backend/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" />
         <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
 
         <!-- @vite(['resources/css/app-frontend.css'])
@@ -192,7 +193,36 @@
       <script src="{{ asset('assets/frontend/js/ajax-form.js') }}"></script>
       <script src="{{ asset('assets/frontend/js/jquery.appear.js') }}"></script>
       <script src="{{ asset('assets/frontend/js/jquery.knob.js') }}"></script>
+      <script src="{{ asset('assets/backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
       <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
+      <script>
+         $(function(){
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            })
+
+            //Success Message 
+            @if(Session::has('success'))
+            Toast.fire({
+               icon: 'success',
+               title: '{{ Session::get("success") }}',
+            })
+            @endif
+
+            // Error Message
+            @if(Session::has('error'))
+            Toast.fire({
+               icon: 'error',
+               title: '{{ Session::get("error") }}',
+            })
+            @endif
+
+         });
+    </script>
       @stack('scripts')
    </body>
 </html>
