@@ -125,8 +125,8 @@
  
       <main>
         <!-- Main Content Start -->
-            @yield('content')
-        <!-- Main Content Ebd -->
+         @yield('content')
+        <!-- Main Content End -->
      </main>
 
       <!-- footer start -->

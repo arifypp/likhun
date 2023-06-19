@@ -28,6 +28,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         '_token',
         '_method',
         'password_confirmation',
+        'connection',
     ];
 
     protected $casts = [
@@ -68,6 +69,13 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         static::deleting(function ($table) {
             $table->deleted_by = Auth::id();
             $table->save();
+        });
+
+        // Connection Column only update by admin
+        static::updating(function ($table) {
+            if (Auth::user()->hasRole('admin')) {
+                $table->connection = Auth::id();
+            }
         });
     }
 
@@ -114,5 +122,17 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function routeNotificationForSlack($notification)
     {
         return env('SLACK_NOTIFICATION_WEBHOOK');
+    }
+
+    /**
+     * Connection Column only update by admin
+     */
+    public function getConnectionAttribute($value)
+    {
+        if (auth()->user()->hasRole('admin')) {
+            return $value;
+        } else {
+            return 0;
+        }
     }
 }

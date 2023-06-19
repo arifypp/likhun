@@ -53,7 +53,7 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
 
-     public function dashboard()
+     public function dashboard($slug)
      {
          $module_title = $this->module_title;
          $module_name = $this->module_name;

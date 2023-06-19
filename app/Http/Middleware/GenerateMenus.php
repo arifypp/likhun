@@ -48,7 +48,7 @@ class GenerateMenus
                 ]);
 
             // Separator: Lyric Music
-            $menu->add('Lyrical Music', [
+            $menu->add('Platform Feature', [
                 'class' => 'nav-item nav-category',
             ])
                 ->data([
@@ -66,7 +66,7 @@ class GenerateMenus
                         'admin/songs*',
                         'admin/categories*',
                     ],
-                    // 'permission' => ['view_songs', 'view_categories'],
+                    'permission' => ['view_songs', 'view_categories'],
                 ]);
             $songs_menu->link->attr([
                 'class' => 'nav-link',
@@ -124,13 +124,50 @@ class GenerateMenus
                     'class' => 'nav-link',
                     'id' => 'songs',
                 ]);
+
+            // Packages Menu with submenu [ Manage Packages, Create Package ]
+            $package_menu = $menu->add('<i class="link-icon" data-feather="box"></i> '.__('<span class="link-title">Manage Package</span>') .'<i class="link-arrow" data-feather="chevron-down"></i>', [
+                'class' => 'nav-item',
+            ])
+                ->data([
+                    'order' => 105,
+                    'activematches' => [
+                        'admin/packages*',
+                        'admin/packages/create*',
+                    ],
+                    'permission' => ['view_our_packages', 'add_our_packages'],
+                ]);
+            $package_menu->link->attr([
+                'class' => 'nav-link',
+                'href' => '#lyrical_packages',
+                'data-toggle' => 'collapse',
+                'aria-expanded' => 'false',
+                'role' => 'button',
+                'aria-controls' => 'packages',
+            ]);
+
+            // Submenu: Manage Packages
+            $package_menu->add(__('Manage Packages'), [
+                'route' => 'backend.packages',
+                'class' => 'nav-item collapse',
+                'id' => 'lyrical_packages',
+            ])
+                ->data([
+                    'order' => 106,
+                    'activematches' => 'admin/packages*',
+                    'permission' => ['view_our_packages'],
+                ])
+                ->link->attr([
+                    'class' => 'nav-link',
+                    'id' => 'packages',
+                ]);
             
             // Separator: Management
             $menu->add('Management', [
                 'class' => 'nav-item nav-category',
             ])
                 ->data([
-                    'order' => 101,
+                    'order' => 108,
                     'permission' => ['edit_settings', 'view_backups', 'view_users', 'view_roles', 'view_logs'],
                 ]);
 
@@ -140,7 +177,7 @@ class GenerateMenus
                 'class' => 'nav-item',
             ])
                 ->data([
-                    'order' => 102,
+                    'order' => 109,
                     'activematches' => 'admin/settings*',
                     'permission' => ['edit_settings'],
                 ])
@@ -154,7 +191,7 @@ class GenerateMenus
                 'class' => 'nav-item',
             ])
                 ->data([
-                    'order' => 103,
+                    'order' => 110,
                     'activematches' => 'admin/backups*',
                     'permission' => ['view_backups'],
                 ])
@@ -167,7 +204,7 @@ class GenerateMenus
                 'class' => 'nav-item',
             ])
                 ->data([
-                    'order' => 104,
+                    'order' => 111,
                     'activematches' => [
                         'admin/users*',
                         'admin/roles*',
@@ -190,7 +227,7 @@ class GenerateMenus
                 'id' => 'access',
             ])
                 ->data([
-                    'order' => 105,
+                    'order' => 112,
                     'activematches' => 'admin/users*',
                     'permission' => ['view_users'],
                 ])
@@ -205,7 +242,7 @@ class GenerateMenus
                 'id' => 'access',
             ])
                 ->data([
-                    'order' => 106,
+                    'order' => 113,
                     'activematches' => 'admin/roles*',
                     'permission' => ['view_roles'],
                 ])
@@ -218,7 +255,7 @@ class GenerateMenus
                 'class' => 'nav-item',
             ])
                 ->data([
-                    'order' => 107,
+                    'order' => 114,
                     'activematches' => [
                         'log-viewer*',
                     ],
@@ -240,7 +277,7 @@ class GenerateMenus
                 'id' => 'log-viewer',
             ])
                 ->data([
-                    'order' => 108,
+                    'order' => 115,
                     'activematches' => 'admin/log-viewer',
                 ])
                 ->link->attr([
@@ -254,7 +291,7 @@ class GenerateMenus
                 'id' => 'log-viewer',
             ])
                 ->data([
-                    'order' => 109,
+                    'order' => 116,
                     'activematches' => 'admin/log-viewer/logs*',
                 ])
                 ->link->attr([
@@ -267,7 +304,7 @@ class GenerateMenus
                 'class' => 'nav-item nav-category',
             ])
                 ->data([
-                    'order' => 110,
+                    'order' => 117,
                     'permission' => ['edit_settings', 'view_backups', 'view_users', 'view_roles', 'view_logs'],
             ]);
             
@@ -275,7 +312,7 @@ class GenerateMenus
                 'class' => 'nav-item',
             ])
                 ->data([
-                    'order' => 111,
+                    'order' => 118,
                 ])
                 ->link->attr([
                     'class' => 'nav-link',

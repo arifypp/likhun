@@ -26,7 +26,12 @@ class SocialLoginController extends Controller
         if ($redirectTo) {
             return $redirectTo;
         } else {
-            return RouteServiceProvider::HOME;
+            // return RouteServiceProvider::HOME;
+            if (auth()->user()->role == 'administrator') {
+                return redirect()->intended(RouteServiceProvider::HOME);
+            } else {
+                return redirect()->route('frontend.users.dashboard', auth()->user()->username);
+            }
         }
     }
 

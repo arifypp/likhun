@@ -40,7 +40,23 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
     Route::get('/all-songs/{slug}', 'SongController@show')->name('songs.show');
     Route::get('/search/all-songs', 'SongController@search')->name('song.search');
     
-    Route::group(['middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
+
+        /**
+         * -------------------------------------------------------------------
+         * Package Route
+         * -------------------------------------------------------------------
+         */
+        Route::group(['prefix' => 'package'], function() {
+            Route::get('/package', 'PackageController@index')->name('package');
+            Route::get('/package/{slug}', 'PackageController@show')->name('package.show');
+            Route::get('/package/{slug}/payment', 'PackageController@payment')->name('package.payment');
+            Route::post('/package/{slug}/payment', 'PackageController@paymentgateway')->name('package.payment.gateway');
+            Route::get('/package/{slug}/payment/success', 'PackageController@paymentSuccess')->name('package.payment.success');
+            Route::get('/package/{slug}/payment/cancel', 'PackageController@paymentCancel')->name('package.payment.cancel');
+        });
+
+
         /*
         * ---------------------------------------------------------------------
         *  Users Routes
@@ -48,7 +64,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
         */
         $module_name = 'users';
         $controller_name = 'UserController';
-        Route::get('/user-dashboard', 'UserController@dashboard')->name('users.dashboard');
+        Route::get('/{slug}', 'UserController@dashboard')->name('users.dashboard');
         Route::get('profile/{id}', ['as' => "$module_name.profile", 'uses' => "$controller_name@profile"]);
         Route::get('profile/{id}/edit', ['as' => "$module_name.profileEdit", 'uses' => "$controller_name@profileEdit"]);
         Route::patch('profile/{id}/edit', ['as' => "$module_name.profileUpdate", 'uses' => "$controller_name@profileUpdate"]);
@@ -133,6 +149,22 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     Route::group(['middleware' => ['permission:edit_songs']], function () {
         $module_name = 'songs';
         $controller_name = 'SongController';
+        Route::get("$module_name", "$controller_name@index")->name("$module_name");
+        Route::get("$module_name/create", "$controller_name@create")->name("$module_name.create");
+        Route::post("$module_name", "$controller_name@store")->name("$module_name.store");
+        Route::get("$module_name/{id}/edit", "$controller_name@edit")->name("$module_name.edit");
+        Route::post("$module_name/{id}", "$controller_name@update")->name("$module_name.update");
+        Route::get("$module_name/{id}/show", "$controller_name@show")->name("$module_name.show");
+        Route::delete("$module_name/{id}", "$controller_name@destroy")->name("$module_name.destroy");
+    });
+
+    /**
+     * 
+     * Package Routes
+     */
+    Route::group(['middleware' => ['permission:edit_our_packages']], function () {
+        $module_name = 'packages';
+        $controller_name = 'PackageController';
         Route::get("$module_name", "$controller_name@index")->name("$module_name");
         Route::get("$module_name/create", "$controller_name@create")->name("$module_name.create");
         Route::post("$module_name", "$controller_name@store")->name("$module_name.store");

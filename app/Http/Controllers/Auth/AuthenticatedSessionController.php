@@ -39,16 +39,15 @@ class AuthenticatedSessionController extends Controller
 
         if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1], $remember)) {
             $request->session()->regenerate();
+            $notification = session()->flash("success", "You are logged in successfully.");
 
             event(new UserLoginSuccess($request, auth()->user()));
 
-            // return redirect()->intended(RouteServiceProvider::HOME);
-
             // if user is admin take admin  dashboard else take user dashboard
-            if (auth()->user()->hasRole('admin')) {
-                return redirect()->intended(RouteServiceProvider::HOME);
+            if (auth()->user()->hasRole('administrator')) {
+                return redirect()->intended(RouteServiceProvider::HOME)->with($notification);
             } else {
-                return redirect()->route('frontend.users.dashboard');
+                return redirect()->route('frontend.users.dashboard', auth()->user()->username)->with($notification);
             }
 
         }
@@ -71,6 +70,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        $notification = session()->flash("success", "You are logged out successfully.");
+
+        return redirect()->route('login')->with($notification);
     }
 }
