@@ -108,7 +108,7 @@
                               <a href="{{ route('dashboard') }}" title="Notification">
                                  <i class="fal fa-bell"></i>
                               </a>
-                              <a href="{{ route('dashboard') }}" title="Dashboard">
+                              <a href="{{ route('frontend.users.dashboard', auth()->user()->username) }}" title="Dashboard">
                                  <i class="fal fa-user"></i>
                               </a>
                            </div>

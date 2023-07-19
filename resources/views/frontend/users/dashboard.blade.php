@@ -37,7 +37,11 @@
                                 <div class="summary-dashboard-box">
                                     <div class="card bg-primary text-center text-light">
                                         <div class="card-body">
-                                            <h3 class="text-light">0</h3>
+                                            <h3 class="text-light">
+                                                @if ( Auth::check() )
+                                                    {{ Auth::user()->connects }}
+                                                @endif
+                                            </h3>
                                             <h6 class="text-light">কানেক রয়েছে</h6>
                                             <p class="text-light">আরো কানেক ক্রয় করতে নিচের ক্রয় বাটনে ক্লিক করুন</p>
                                             <a href="{{ route('frontend.package') }}" class="btn btn-light">ক্রয় করুন</a>

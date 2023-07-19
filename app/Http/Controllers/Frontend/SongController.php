@@ -71,9 +71,20 @@ class SongController extends Controller
     public function show(string $slug)
     {
         //
-        $song = Song::where('slug', $slug)->first(['id', 'title', 'slug', 'song_artist_id', 'song_category_id', 'short_description', 'status', 'hits', 'created_at', 'updated_at']);
+        $song = Song::where('slug', $slug)->first(['id', 'title', 'slug', 'lyrics', 'song_artist_id', 'song_category_id', 'short_description', 'status', 'hits', 'created_at', 'updated_at']);
+
+        // Check if the user has purchased the song
+        $user = auth()->user();
+        $isPurchased = $user && $user->songCheckouts()->where('song_id', $song->id)->exists();
+
+        // If the user has not purchased the song, hide the lyrics
+        if (!$isPurchased) {
+            $song->lyrics = null;
+        }
 
         event(new LyricViewed($song));
+
+        // dd($song);
 
         return view('frontend.pages' . '.' . $this->module_path . '-details', compact('song'));
     }

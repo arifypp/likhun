@@ -60,26 +60,19 @@
                                 <div class="song-content__body-top">
                                     <div class="song-content__body-left">
                                         <div class="song-content__body-content">
-                                            {!! $song->short_description !!}
+                                            {!! $song->lyrics !!}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @if($song->getCheckoutButtonHtml() )
                         <div class="card-footer">
                             <div class="song-content__body-btn text-center pt-15 pb-15">
-                                <p class="text-muted">এই গানটি কিনতে আপনার ১টি কানেকশন খরচ হবে।</p>
-                                @auth->check()
-                                <a href="#" class="btn btn--primary tp-btn btn--lg btn--round mb-15">
-                                    <span class="mr-10"><i class="fal fa-shopping-cart"></i></span> সম্পূর্ণ লিরিক্স ক্রয় করুন
-                                </a>
-                                @else
-                                <a href="{{ route('login') }}" class="btn btn--primary tp-btn btn--lg btn--round mb-15">
-                                    <span class="mr-10"><i class="fal fa-shopping-cart"></i></span> সম্পূর্ণ লিরিক্স ক্রয় করুন
-                                </a>
-                                @endauth
+                                {!! $song->getCheckoutButtonHtml() !!}
                             </div>
                         </div>
+                        @endif
                     </div>
                     <div class="song-content__footer d-flex justify-content-between pt-20 pb-20 border-bottom-1">
                             <div class="song-content__footer-left">
@@ -151,3 +144,76 @@
 </section>
 <!-- Content Area End -->
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // btn-checkout on click event go route checkout.song
+            $('.btn-checkout').on('click', function(e) {
+                e.preventDefault();
+                // get data from data attribute
+                var song_id = $(this).data('song_id');
+                var user_id = $(this).data('user_id');
+                var connects = $(this).data('connects');
+
+                // sweetalert2 on confirm
+                Swal.fire({
+                    title: 'আপনি কি এই গানটি ক্রয় করতে চান?',
+                    text: "আপনার কানেকশন থেকে ১ কানেকশন কর্তৃক ক্রয় করা হবে।",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'হ্যাঁ, ক্রয় করুন!',
+                    cancelButtonText: 'না, আবার দেখুন'
+                }).then((result) => {
+                    // if user click yes
+                    if (result.value) {
+                        $.ajax({
+                            url: "{{ route('frontend.checkout.song') }}",
+                            type: "GET",
+                            data: {
+                                song_id: song_id,
+                                user_id: user_id,
+                                connects: connects,
+                                _token: "{{ csrf_token() }}",
+                            },
+                            beforeSend: function() {
+                                Swal.fire({
+                                    title: 'অনুগ্রহ পূর্বক অপেক্ষা করুন!',
+                                    icon: 'info',
+                                    allowOutsideClick: false,
+                                    showConfirmButton: false,
+                                    willOpen: () => {
+                                        Swal.showLoading();
+                                    },
+                                });
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    title: response.success,
+                                    text: response.message,
+                                    icon: response.icon,
+                                    confirmButtonText: 'Ok'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $('.song-content-area').load(location.href + ' .song-content-area');
+                                    }
+                                });
+                            },
+                            error: function(response) {
+                                // sweetalert2 error
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: response.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Ok'
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

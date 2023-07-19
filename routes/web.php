@@ -56,6 +56,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.
             Route::get('/package/{slug}/payment/cancel', 'PackageController@paymentCancel')->name('package.payment.cancel');
         });
 
+        /**
+         * -------------------------------------------------------------------
+         * SongCheckout Route
+         * -------------------------------------------------------------------
+         */
+        Route::group(['prefix' => 'checkout'], function() {
+            Route::get('/song', 'SongCheckoutController@index')->name('checkout.song');
+        });
+
 
         /*
         * ---------------------------------------------------------------------
@@ -166,6 +175,23 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
         $module_name = 'packages';
         $controller_name = 'PackageController';
         Route::get("$module_name", "$controller_name@index")->name("$module_name");
+        Route::get("$module_name/create", "$controller_name@create")->name("$module_name.create");
+        Route::post("$module_name", "$controller_name@store")->name("$module_name.store");
+        Route::get("$module_name/{id}/edit", "$controller_name@edit")->name("$module_name.edit");
+        Route::post("$module_name/{id}", "$controller_name@update")->name("$module_name.update");
+        Route::get("$module_name/{id}/show", "$controller_name@show")->name("$module_name.show");
+        Route::delete("$module_name/{id}", "$controller_name@destroy")->name("$module_name.destroy");
+    });
+
+    /**
+     * 
+     * Payment Routes
+     */
+    Route::group(['middleware' => ['permission:edit_our_packages']], function () {
+        $module_name = 'payments';
+        $controller_name = 'PaymentController';
+        Route::get("$module_name", "$controller_name@index")->name("$module_name");
+        Route::get("$module_name/pending", "$controller_name@pending")->name("$module_name.pending");
         Route::get("$module_name/create", "$controller_name@create")->name("$module_name.create");
         Route::post("$module_name", "$controller_name@store")->name("$module_name.store");
         Route::get("$module_name/{id}/edit", "$controller_name@edit")->name("$module_name.edit");

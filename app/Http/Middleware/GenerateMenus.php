@@ -162,12 +162,66 @@ class GenerateMenus
                     'id' => 'packages',
                 ]);
             
+            // Payment Menu with submenu [ Pending Payment, All Payment ]
+            $payment_menu = $menu->add('<i class="link-icon" data-feather="dollar-sign"></i> '.__('<span class="link-title">Manage Payment</span>') .'<i class="link-arrow" data-feather="chevron-down"></i>', [
+                'class' => 'nav-item',
+            ])
+                ->data([
+                    'order' => 107,
+                    'activematches' => [
+                        'admin/payments*',
+                        'admin/payments/create*',
+                    ],
+                    // 'permission' => ['view_pending_payments', 'view_all_payments'],
+                ]);
+            $payment_menu->link->attr([
+                'class' => 'nav-link',
+                'href' => '#lyrical_payments',
+                'data-toggle' => 'collapse',
+                'aria-expanded' => 'false',
+                'role' => 'button',
+                'aria-controls' => 'payments',
+            ]);
+
+            // Submenu: Pending Payment
+            $payment_menu->add(__('Pending Payment'), [
+                'route' => 'backend.payments.pending',
+                'class' => 'nav-item collapse',
+                'id' => 'lyrical_payments',
+            ])
+                ->data([
+                    'order' => 108,
+                    'activematches' => 'admin/payments*',
+                    // 'permission' => ['view_pending_payments'],
+                ])
+                ->link->attr([
+                    'class' => 'nav-link',
+                    'id' => 'payments',
+                ]);
+
+            // Submenu: All Payment
+            $payment_menu->add(__('All Payment'), [
+                'route' => 'backend.payments',
+                'class' => 'nav-item collapse',
+                'id' => 'lyrical_payments',
+            ])
+                ->data([
+                    'order' => 109,
+                    'activematches' => 'admin/payments/all*',
+                    // 'permission' => ['view_all_payments'],
+                ])
+                ->link->attr([
+                    'class' => 'nav-link',
+                    'id' => 'payments',
+                ]);
+                
+            
             // Separator: Management
             $menu->add('Management', [
                 'class' => 'nav-item nav-category',
             ])
                 ->data([
-                    'order' => 108,
+                    'order' => 110,
                     'permission' => ['edit_settings', 'view_backups', 'view_users', 'view_roles', 'view_logs'],
                 ]);
 
@@ -177,7 +231,7 @@ class GenerateMenus
                 'class' => 'nav-item',
             ])
                 ->data([
-                    'order' => 109,
+                    'order' => 111,
                     'activematches' => 'admin/settings*',
                     'permission' => ['edit_settings'],
                 ])
@@ -191,7 +245,7 @@ class GenerateMenus
                 'class' => 'nav-item',
             ])
                 ->data([
-                    'order' => 110,
+                    'order' => 112,
                     'activematches' => 'admin/backups*',
                     'permission' => ['view_backups'],
                 ])

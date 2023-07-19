@@ -17,8 +17,8 @@
     </div>
     <div class="user-info-menu">
     <ul class="list-unstyled">
-        <li><a href="#"><span class="me-2"><i class="fas fa-home"></i> </span> আমার ড্যাশবোর্ড</a></li>
-        <li><a href="#" class="active"><span class="me-2"><i class="fas fa-heart"></i> </span> পছন্দের তালিকা</a></li>
+        <li><a href="{{ route('frontend.users.dashboard', auth()->user()->username) }}" class="@if(request()->routeIs('frontend.users.dashboard')) active @endif"><span class="me-2"><i class="fas fa-tachometer-alt"></i> </span> ড্যাশবোর্ড</a></li>
+        <li><a href="#"><span class="me-2"><i class="fas fa-heart"></i> </span> পছন্দের তালিকা</a></li>
         <li><a href="#"><span class="me-2"><i class="fas fa-heart"></i> </span> অপছন্দের তালিকা</a></li>
         <li><a href="#"><span class="me-2"><i class="fas fa-shopping-cart"></i> </span> আমার ক্রয়সমূহ</a></li>
         <li><a href="#"><span class="me-2"><i class="fas fa-user"></i> </span> সাপোর্ট & রিপোর্ট</a></li>

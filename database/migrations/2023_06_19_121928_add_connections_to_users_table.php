@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // add connection column this column very important and only update admin can access
-            $table->bigInteger('connection')->default(0)->after('id');
+            $table->bigInteger('connects')->default(0)->after('id');
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn('connection');
+            $table->dropColumn('connects');
         });
     }
 };

@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Frontend\SongCheckout;
+use Spatie\Permission\Traits\HasRoles;
 use App\Models\Presenters\UserPresenter;
+use Illuminate\Notifications\Notifiable;
 use App\Models\Traits\HasHashedMediaTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
@@ -28,7 +29,6 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         '_token',
         '_method',
         'password_confirmation',
-        'connection',
     ];
 
     protected $casts = [
@@ -71,12 +71,6 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
             $table->save();
         });
 
-        // Connection Column only update by admin
-        static::updating(function ($table) {
-            if (Auth::user()->hasRole('admin')) {
-                $table->connection = Auth::id();
-            }
-        });
     }
 
     /**
@@ -134,5 +128,10 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         } else {
             return 0;
         }
+    }
+
+    public function songCheckouts()
+    {
+        return $this->hasMany(SongCheckout::class, 'user_id');
     }
 }
